@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MY LOVE 21 - Sandeep Thakur</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:white;text-align:center;
+background:linear-gradient(145deg,#170a30,#681342,#170a30)}
+header{padding:30px 12px}
+h1{font-size:clamp(38px,10vw,60px);color:#ffb9df;
+text-shadow:0 0 15px #ff168e}
+h2{color:#ffb9df}
+p{line-height:1.8}
+.card{width:92%;max-width:520px;margin:18px auto;padding:22px 15px;
+background:#ffffff12;border:1px solid #ff88c777;border-radius:22px;
+box-shadow:0 0 20px #ff168e20}
+button{border:0;border-radius:25px;padding:12px 17px;margin:6px;
+color:white;background:linear-gradient(90deg,#ff268d,#873cff);
+font-size:15px;cursor:pointer}
+.answer{display:block;width:95%;margin:10px auto}
+.big{font-size:48px}
+#photo{max-width:90%;max-height:350px;display:block;margin:12px auto;
+border:3px solid pink;border-radius:18px}
+input[type=file]{width:95%;margin:10px}
+#playarea{height:200px;position:relative;overflow:hidden;
+background:#150a28;border-radius:15px}
+.heart{position:absolute;background:none;font-size:27px;padding:4px}
+footer{padding:25px;color:#ffb9df}
+</style>
+</head>
+<body>
+<header>
+<p>✨ A STORY MADE WITH FEELINGS ✨</p>
+<h1>MY LOVE 21</h1>
+<h2>💖 LOVE LIFE 💖</h2>
+<p>Made with care by<br><b>SANDEEP THAKUR</b></p>
+<button onclick="go('messages')">💌 Emotional Messages</button>
+<button onclick="go('quiz')">💗 Start Quiz</button>
+</header>
+
+<section class="card">
+<h2>📸 Special Memory</h2>
+<p>अपनी भेजी हुई फोटो को यहाँ चुनो।</p>
+<input type="file" accept="image/*" onchange="loadPhoto(event)">
+<img id="photo" alt="Your special photo" style="display:none">
+<p>एक तस्वीर, हजारों यादें ❤️</p>
+</section>
+
+<section class="card" id="messages">
+<h2>💌 Dil Se Messages</h2>
+<div class="big" id="emoji">💖</div>
+<p id="msg">कुछ लोग हमारी जिंदगी में आकर साधारण पलों को भी खास बना देते हैं।</p>
+<button onclick="newMessage()">अगला इमोशनल मैसेज 💕</button>
+<button onclick="readMessage()">🔊 सुनकर पढ़ो</button>
+<button onclick="stopRead()">⏹ रोकें</button>
+</section>
+
+<section class="card">
+<h2>🌹 मेरी छोटी-सी चिट्ठी</h2>
+<p id="letter">तुम्हारे लिए एक प्यारा-सा संदेश: जिंदगी में हमेशा मुस्कुराते रहना। तुम्हारे सपने पूरे हों, तुम्हें सम्मान मिले और तुम्हारे हर दिन में थोड़ी-सी खुशी जरूर हो। कुछ यादें शब्दों से बड़ी होती हैं। ❤️</p>
+<button onclick="readLetter()">🔊 चिट्ठी सुनो</button>
+<button onclick="stopRead()">⏹ रोकें</button>
+</section>
+
+<section class="card" id="quiz">
+<h2>💞 Love Quiz</h2>
+<p id="qcount"></p>
+<h3 id="question"></h3>
+<div id="answers"></div>
+<p id="feedback"></p>
+<button id="next" onclick="nextQ()" style="display:none">अगला सवाल ➜</button>
+<h3 id="scoreResult"></h3>
+<button id="again" onclick="startQuiz()" style="display:none">🔄 फिर खेलो</button>
+</section>
+
+<section class="card">
+<h2>💬 दिल से सवाल-जवाब</h2>
+<h3 id="ask">खुशहाल दोस्ती में क्या सबसे जरूरी है?</h3>
+<div id="replyChoices"></div>
+<p id="reply"></p>
+<button onclick="nextAsk()">अगला सवाल ❤️</button>
+</section>
+
+<section class="card">
+<h2>💖 Catch The Hearts</h2>
+<p>दिल पर टैप करके स्कोर बढ़ाओ!</p>
+<h3>Score: <span id="points">0</span></h3>
+<div id="playarea">
+<button class="heart" style="left:10%;top:15%" onclick="catchH(this)">💖</button>
+<button class="heart" style="left:55%;top:50%" onclick="catchH(this)">💕</button>
+<button class="heart" style="left:75%;top:15%" onclick="catchH(this)">💘</button>
+</div>
+<button onclick="resetH()">↻ Restart</button>
+</section>
+
+<section class="card">
+<h2>🎵 Music Corner</h2>
+<p>Tere Naam Humne Kiya Hai 🎶</p>
+<button onclick="window.open('https://www.youtube.com/results?search_query=Tere+Naam+Humne+Kiya+Hai+official+song','_blank')">▶ YouTube पर गाना सुनो</button>
+<p>एक छोटी-सी धुन:</p>
+<button onclick="playTune()">🎹 Play Melody</button>
+<button onclick="stopTune()">🔇 Stop</button>
+</section>
+
+<section class="card">
+<h2>🎁 Surprise For You</h2>
+<div id="present" class="big">🎁</div>
+<button onclick="openPresent()">Surprise खोलो 💝</button>
+<p id="presentText"></p>
+</section>
+
+<footer>
+<h2>MY LOVE 21 💖</h2>
+<p>MADE BY SANDEEP THAKUR</p>
+<p>यादें खूबसूरत हों, बातें सच्ची हों और खुशियाँ हमेशा साथ रहें। ✨</p>
+</footer>
+
+<script>
+const messages=[
+["💖","कुछ लोग दिल के करीब होते हैं, चाहे उनसे रोज बात हो या नहीं।"],
+["🌹","हर खूबसूरत याद हमें याद दिलाती है कि छोटे पल भी खास हो सकते हैं।"],
+["✨","तुम्हारी जिंदगी में इतनी खुशियाँ आएँ कि हर सुबह नई उम्मीद लेकर आए।"],
+["💌","सच्चा अपनापन शब्दों से नहीं, सम्मान, भरोसे और अच्छे व्यवहार से दिखता है।"],
+["🌸","कभी-कभी एक छोटी-सी मुस्कान भी पूरे दिन को बेहतर बना देती है।"],
+["💗","दूरी हो या व्यस्तता, अच्छी यादों की अपनी अलग जगह होती है।"],
+["🦋","खुद पर भरोसा रखना, तुम्हारे सपने और तुम्हारी खुशी दोनों कीमती हैं।"],
+["🌈","हर मुश्किल दिन के बाद नई शुरुआत का मौका आता है।"],
+["❤️","किसी की जिंदगी में खुशी जोड़ना खूबसूरत बात है, और अपनी खुशी का ध्यान रखना भी।"],
+["🎀","कुछ बातें दिल में रहती हैं और कुछ प्यारे संदेशों में ढल जाती हैं।"]
+];
+let mi=0;
+function newMessage(){
+ mi=(mi+1)%messages.length;
+ document.getElementById('emoji').textContent=messages[mi][0];
+ document.getElementById('msg').textContent=messages[mi][1];
+}
+function readMessage(){speakText(document.getElementById('msg').textContent)}
+function readLetter(){speakText(document.getElementById('letter').textContent)}
+function speakText(t){
+ if(!('speechSynthesis' in window)){alert('इस ब्राउज़र में voice उपलब्ध नहीं है।');return}
+ speechSynthesis.cancel();
+ let u=new SpeechSynthesisUtterance(t);u.lang='hi-IN';u.rate=.85;
+ speechSynthesis.speak(u);
+}
+function stopRead(){if('speechSynthesis' in window)speechSynthesis.cancel()}
+function loadPhoto(e){
+ const f=e.target.files[0];if(!f)return;
+ const img=document.getElementById('photo');
+ img.src=URL.createObjectURL(f);img.style.display='block';
+}
+const quiz=[
+{q:"अच्छे रिश्ते की नींव क्या है?",a:["भरोसा","दिखावा","जल्दबाजी"],c:0},
+{q:"गलतफहमी होने पर क्या बेहतर है?",a:["शांति से बात करना","अनदेखा करना","गुस्सा करना"],c:0},
+{q:"किसी की भावनाओं के साथ क्या करना चाहिए?",a:["सम्मान","मजाक","दबाव"],c:0},
+{q:"एक खूबसूरत याद कैसे बनती है?",a:["अच्छे पलों से","झूठ से","जबरदस्ती से"],c:0},
+{q:"खुश रहने के लिए क्या जरूरी है?",a:["खुद की देखभाल","हर किसी को खुश करना","अपनी बात दबाना"],c:0}
+];
+let qi=0,score=0,done=false;
+function startQuiz(){qi=0;score=0;document.getElementById('scoreResult').textContent='';
+document.getElementById('again').style.display='none';showQ()}
+function showQ(){
+ done=false;let q=quiz[qi];
+ document.getElementById('qcount').textContent='सवाल '+(qi+1)+' / '+quiz.length;
+ document.getElementById('question').textContent=q.q;
+ document.getElementById('feedback').textContent='';
+ document.getElementById('next').style.display='none';
+ let box=document.getElementById('answers');box.innerHTML='';
+ q.a.forEach((a,i)=>{let b=document.createElement('button');b.className='answer';b.textContent=a;b.onclick=()=>answerQ(i);box.appendChild(b)});
+}
+function answerQ(i){
+ if(done)return;done=true;
+ if(i===quiz[qi].c){score++;document.getElementById('feedback').textContent='बिल्कुल सही! 💖';}
+ else document.getElementById('feedback').textContent='कोई बात नहीं, सीखते रहो 🌸';
+ document.getElementById('next').style.display='inline-block';
+}
+function nextQ(){
+ if(!done)return;qi++;
+ if(qi<quiz.length){showQ();return}
+ document.getElementById('question').textContent='Quiz पूरा हुआ! 🎉';
+ document.getElementById('qcount').textContent='तुम्हारा रिजल्ट';
+ document.getElementById('answers').innerHTML='';
+ document.getElementById('feedback').textContent='';
+ document.getElementById('next').style.display='none';
+ document.getElementById('scoreResult').textContent='Score: '+score+' / '+quiz.length+' 💗';
+ document.getElementById('again').style.display='inline-block';
+}
+const asks=[
+{q:'खुशहाल दोस्ती में क्या जरूरी है?',a:['भरोसा 🤝','सम्मान 🌹','दोनों 💖']},
+{q:'किसी की बात सुनना क्यों जरूरी है?',a:['समझने के लिए 💗','सम्मान के लिए 🌸','दोनों ✨']},
+{q:'एक अच्छा दिन क्या खास बनाता है?',a:['मुस्कान 😊','अच्छी यादें 💌','दोनों ❤️']},
+{q:'कठिन समय में क्या मदद करता है?',a:['उम्मीद ✨','अपनों का साथ 💞','दोनों 🌈']}
+];
+let ai=0;
+function drawAsk(){
+ document.getElementById('ask').textContent=asks[ai].q;
+ let box=document.getElementById('replyChoices');box.innerHTML='';
+ asks[ai].a.forEach(a=>{let b=document.createElement('button');b.className='answer';b.textContent=a;b.onclick=()=>document.getElementById('reply').textContent='तुम्हारा जवाब: '+a;box.appendChild(b)});
+ document.getElementById('reply').textContent='';
+}
+function nextAsk(){ai=(ai+1)%asks.length;drawAsk()}
+let pts=0;
+function catchH(b){pts++;document.getElementById('points').textContent=pts;b.style.left=Math.random()*75+'%';b.style.top=Math.random()*70+'%';b.textContent=['💖','💕','💘','💗'][Math.floor(Math.random()*4)]}
+function resetH(){pts=0;document.getElementById('points').textContent=0}
+function openPresent(){document.getElementById('present').textContent='💝';document.getElementById('presentText').textContent='तुम्हें हमेशा खुशियाँ, सम्मान और खूबसूरत यादें मिलें। अपना ख्याल रखना! 🌹'}
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+let ctx=null,os=[];
+function playTune(){
+ stopTune();
+ try{ctx=new(window.AudioContext||window.webkitAudioContext)();
+ [392,440,523,440,349,392,523,494].forEach((n,i)=>{
+ let o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=n;g.gain.value=.04;
+ o.connect(g);g.connect(ctx.destination);let t=ctx.currentTime+i*.3;o.start(t);o.stop(t+.23);os.push(o);
+ })}catch(e){alert('Audio उपलब्ध नहीं है।')}
+}
+function stopTune(){os.forEach(o=>{try{o.stop()}catch(e){}});os=[];if(ctx){ctx.close();ctx=null}}
+startQuiz();drawAsk();
+setInterval(()=>{
+ let h=document.createElement('span');h.textContent=['💖','💕','✨','💗'][Math.floor(Math.random()*4)];
+ h.style.cssText='position:fixed;bottom:-30px;left:'+Math.random()*95+'%;font-size:24px;pointer-events:none;z-index:-1;animation:float 6s linear forwards';
+ document.body.appendChild(h);setTimeout(()=>h.remove(),6000);
+},700);
+let st=document.createElement('style');st.textContent='@keyframes float{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}';document.head.appendChild(st);
+</script>
+</body>
+</html>
